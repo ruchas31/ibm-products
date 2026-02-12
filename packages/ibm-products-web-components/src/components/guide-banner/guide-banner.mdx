@@ -1,0 +1,90 @@
+import { ArgTypes, Markdown, Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { cdnJs, cdnCss } from '../../globals/internal/storybook-cdn';
+import * as GuideBannerStories from './guide-banner.stories';
+
+<Meta of={GuideBannerStories} />
+
+# GuideBanner
+
+The GuideBanner component is a collapsible banner that provides guidance or information to users. It features a horizontal scrollable list of guide elements with navigation controls, and can be expanded or collapsed to show or hide detailed content.
+
+## Getting started
+
+Here's a quick example to get you started.
+
+### JS (via import)
+
+```javascript
+import '@carbon/ibm-products-web-components/es/components/guide-banner/index.js';
+```
+
+### HTML
+
+```html
+<c4p-guide-banner
+  collapseButtonLabel="Read less"
+  expandButtonLabel="Read more"
+  titleText="Page-related heading that can stand on its own"
+  open
+>
+  <div slot="body">
+    <!-- Guide banner elements go here -->
+  </div>
+</c4p-guide-banner>
+```
+
+## Usage
+
+The GuideBanner component is designed to display multiple guide items in a horizontally scrollable container. Users can navigate through the items using the left and right arrow buttons, and expand or collapse the banner to view more or less information.
+
+### Key Features
+
+- **Collapsible Content**: Toggle between expanded and collapsed states using the "Read more" and "Read less" buttons
+- **Horizontal Scrolling**: Navigate through multiple guide items with smooth scroll snap behavior
+- **Navigation Controls**: Left and right arrow buttons for easy navigation between items
+- **Customizable Labels**: Configure button labels for expand/collapse actions
+- **Close Button**: Dismiss the banner when no longer needed
+- **Icon Support**: Default idea icon with support for custom icons
+
+### When to Use
+
+- To provide step-by-step guidance or onboarding information
+- To display multiple related tips or information cards
+- When you need a dismissible informational banner with navigation
+- For showcasing features or product highlights in a carousel-like format
+
+### When Not to Use
+
+- For critical alerts or warnings (use notification components instead)
+- When content doesn't require horizontal navigation
+- For single, static messages (use inline notifications instead)
+
+## Example Usage
+
+### Default
+
+The default GuideBanner with standard configuration.
+
+<Canvas of={GuideBannerStories.Default} />
+
+### Collapsed State
+
+The banner in its collapsed state, showing only the header.
+
+<Canvas of={GuideBannerStories.Collapsed} />
+
+### Custom Button Labels
+
+Example with customized expand and collapse button labels.
+
+<Canvas of={GuideBannerStories.WithCustomLabels} />
+
+### Without Title
+
+A GuideBanner without a title text.
+
+<Canvas of={GuideBannerStories.WithoutTitle} />
+
+## `<c4p-guide-banner>` attributes, properties and events
+
+<ArgTypes of="c4p-guide-banner" />

@@ -150,6 +150,13 @@ const renderTemplate = (args) => {
   `;
 };
 
+const meta = {
+  title: 'Components/GuideBanner',
+  argTypes,
+};
+
+export default meta;
+
 export const Default = {
   args: {
     '@c4p-guidebanner-ontoggle': fn(),
@@ -159,12 +166,41 @@ export const Default = {
     titleText: 'Page-related heading that can stand on its own',
     open: true,
   },
-  argTypes,
   render: renderTemplate,
 };
 
-const meta = {
-  title: 'Components/GuideBanner',
+export const Collapsed = {
+  args: {
+    '@c4p-guidebanner-ontoggle': fn(),
+    '@c4p-guidebanner-onclose': fn(),
+    collapseText: 'Read less',
+    expandText: 'Read more',
+    titleText: 'Page-related heading that can stand on its own',
+    open: false,
+  },
+  render: renderTemplate,
 };
 
-export default meta;
+export const WithCustomLabels = {
+  args: {
+    '@c4p-guidebanner-ontoggle': fn(),
+    '@c4p-guidebanner-onclose': fn(),
+    collapseText: 'Show less',
+    expandText: 'Show more',
+    titleText: 'Page-related heading that can stand on its own',
+    open: true,
+  },
+  render: renderTemplate,
+};
+
+export const WithoutTitle = {
+  args: {
+    '@c4p-guidebanner-ontoggle': fn(),
+    '@c4p-guidebanner-onclose': fn(),
+    collapseText: 'Read less',
+    expandText: 'Read more',
+    titleText: '',
+    open: true,
+  },
+  render: renderTemplate,
+};
