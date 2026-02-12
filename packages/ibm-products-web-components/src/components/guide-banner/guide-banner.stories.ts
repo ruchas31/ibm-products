@@ -109,9 +109,32 @@ const renderTemplate = (args) => {
       </div>
       <div class="footer" slot="footer">
         <div class="footer-left">
-          <cds-button kind="ghost" class="${blockClass}__toggle-button"
-            >${open ? collapseText : expandText}</cds-button
+          <cds-button
+            id="toggle-btn"
+            kind="ghost"
+            size="md"
+            class="${blockClass}__toggle-button"
+            @click=${(evt: MouseEvent) => {
+              const guideBanner = (evt.target as HTMLElement)?.closest(
+                'c4p-guide-banner'
+              ) as any;
+              const toggleBtn = evt.target as HTMLElement;
+              if (guideBanner) {
+                guideBanner._handleToggle();
+                // Update button text after toggle
+                setTimeout(() => {
+                  const btn = toggleBtn.closest('cds-button');
+                  if (btn) {
+                    btn.textContent = guideBanner.open
+                      ? collapseText
+                      : expandText;
+                  }
+                }, 0);
+              }
+            }}
           >
+            ${open ? collapseText : expandText}
+          </cds-button>
         </div>
         <div class="footer-right">
           <cds-button
@@ -150,13 +173,6 @@ const renderTemplate = (args) => {
   `;
 };
 
-const meta = {
-  title: 'Components/GuideBanner',
-  argTypes,
-};
-
-export default meta;
-
 export const Default = {
   args: {
     '@c4p-guidebanner-ontoggle': fn(),
@@ -168,6 +184,13 @@ export const Default = {
   },
   render: renderTemplate,
 };
+
+const meta = {
+  title: 'Components/GuideBanner',
+  argTypes,
+};
+
+export default meta;
 
 export const Collapsed = {
   args: {
