@@ -91,19 +91,16 @@ multiStepTearsheet.storyName = 'Create tearsheet';
 multiStepTearsheet.args = {
   ...createTearsheetProps,
   firstFocusElement: '#tearsheet-multi-step-story-text-input-multi-step-1',
-  secondaryButtonDisabled: false,
 };
 
 export const withIntroStep = MultiStepWithIntro.bind({});
 withIntroStep.storyName = 'Create tearsheet with intro step';
 withIntroStep.args = {
   ...createTearsheetProps,
-  secondaryButtonDisabled: false,
 };
 
 export const withErrorState = MultiStepWithStepInErrorState.bind({});
 withErrorState.storyName = 'Create tearsheet with step in error state';
 withErrorState.args = {
   ...createTearsheetProps,
-  secondaryButtonDisabled: false,
 };
