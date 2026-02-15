@@ -182,12 +182,12 @@ export const Default = {
     titleText: 'Page-related heading that can stand on its own',
     open: true,
   },
+  argTypes,
   render: renderTemplate,
 };
 
 const meta = {
   title: 'Components/GuideBanner',
-  argTypes,
 };
 
 export default meta;
