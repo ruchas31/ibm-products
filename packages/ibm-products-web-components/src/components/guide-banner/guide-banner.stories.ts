@@ -119,15 +119,24 @@ const renderTemplate = (args) => {
                 'c4p-guide-banner'
               ) as any;
               const toggleBtn = evt.target as HTMLElement;
+              const footerRight = document.querySelector(
+                '.footer-right'
+              ) as HTMLElement;
               if (guideBanner) {
                 guideBanner._handleToggle();
-                // Update button text after toggle
+                // Update button text and navigation visibility after toggle
                 setTimeout(() => {
                   const btn = toggleBtn.closest('cds-button');
                   if (btn) {
                     btn.textContent = guideBanner.open
                       ? collapseText
                       : expandText;
+                  }
+                  // Show/hide navigation buttons based on open state
+                  if (footerRight) {
+                    footerRight.style.display = guideBanner.open
+                      ? 'flex'
+                      : 'none';
                   }
                 }, 0);
               }
@@ -136,7 +145,7 @@ const renderTemplate = (args) => {
             ${open ? collapseText : expandText}
           </cds-button>
         </div>
-        <div class="footer-right">
+        <div class="footer-right" style="display: ${open ? 'flex' : 'none'}">
           <cds-button
             id="previous-btn"
             kind="ghost"
