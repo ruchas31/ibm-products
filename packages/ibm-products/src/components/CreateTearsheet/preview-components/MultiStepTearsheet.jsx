@@ -303,7 +303,7 @@ export const MultiStepTearsheet = (
                 className={`${blockClass}__back-button--toggle`}
                 id="disable-back-button-toggle"
                 size="sm"
-                labelText="Disable back button"
+                labelText="Disable secondary button"
                 toggled={disableBackButton}
                 onToggle={(checked) => setDisableBackButton(checked)}
               />
