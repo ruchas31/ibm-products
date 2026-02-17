@@ -109,14 +109,55 @@ export function getFocusedItem() {
 }
 
 /**
+ * Helper function to scroll to a sibling element with proper handling for already-visible items
+ * @param sibling The sibling element to scroll to
+ * @param inline The scroll alignment ('start' for next, 'nearest' for previous)
+ */
+function scrollToSibling(sibling: Element, inline: ScrollLogicalPosition) {
+  const parent = sibling.parentElement;
+  if (!parent) {
+    return;
+  }
+
+  // Check if the sibling is already fully in view
+  const siblingRect = sibling.getBoundingClientRect();
+  const parentRect = parent.getBoundingClientRect();
+  const isFullyInView =
+    siblingRect.left >= parentRect.left &&
+    siblingRect.right <= parentRect.right;
+
+  // Update the selection class for already visible items
+  if (isFullyInView) {
+    const currentlySnapped = document.querySelector(`.${selectionClass}`);
+    if (currentlySnapped) {
+      currentlySnapped.classList.remove(selectionClass);
+    }
+    sibling.classList.add(selectionClass);
+  }
+
+  // Always scroll to ensure proper snap alignment
+  sibling.scrollIntoView({
+    behavior: 'smooth',
+    inline,
+  });
+
+  // If already in view, scrollIntoView won't trigger scrollend
+  // So we manually dispatch it to ensure navigation buttons update
+  if (isFullyInView) {
+    setTimeout(() => {
+      parent.dispatchEvent(new Event('scrollend', { bubbles: true }));
+    }, 50);
+  }
+}
+
+/**
  * Scrolls to the next sibling element of the currently focused element
  */
 export function scrollNext() {
   const sibling = getNextSibling();
-  sibling?.scrollIntoView({
-    behavior: 'smooth',
-    inline: 'start',
-  });
+  if (sibling) {
+    scrollToSibling(sibling, 'start');
+  }
 }
 
 /**
@@ -124,10 +165,9 @@ export function scrollNext() {
  */
 export function scrollPrevious() {
   const sibling = getPreviousSibling();
-  sibling?.scrollIntoView({
-    behavior: 'smooth',
-    inline: 'start',
-  });
+  if (sibling) {
+    scrollToSibling(sibling, 'nearest');
+  }
 }
 
 export function getNextSibling() {
