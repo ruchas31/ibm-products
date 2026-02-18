@@ -21,6 +21,8 @@ import {
   scrollPrevious,
   getNextSibling,
   getPreviousSibling,
+  hasNextSiblingNotInView,
+  hasPreviousSiblingNotInView,
 } from '../../utilities/snapscroll';
 import { iconLoader } from '@carbon/web-components/es/globals/internal/icon-loader.js';
 import ChevronRight16 from '@carbon/icons/es/chevron--right/';
@@ -65,14 +67,14 @@ const renderTemplate = (args) => {
 
   const scrollendHandler = () => {
     const nextBtn = document.getElementById('next-btn');
-    if (getNextSibling()) {
+    if (hasNextSiblingNotInView()) {
       nextBtn?.removeAttribute('disabled');
     } else {
       nextBtn?.setAttribute('disabled', '');
     }
 
     const previousBtn = document.getElementById('previous-btn');
-    if (getPreviousSibling()) {
+    if (hasPreviousSiblingNotInView()) {
       previousBtn?.removeAttribute('disabled');
     } else {
       previousBtn?.setAttribute('disabled', '');

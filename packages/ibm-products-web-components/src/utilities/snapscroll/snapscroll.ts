@@ -233,3 +233,45 @@ export function getPreviousSibling() {
 
   return item.previousElementSibling;
 }
+
+/**
+ * Checks if there are any next siblings that are not fully in view
+ * @returns true if there are more items to scroll to in the next direction
+ */
+export function hasNextSiblingNotInView(): boolean {
+  const item = getFocusedItem();
+  if (!item || !item.parentElement) {
+    return false;
+  }
+
+  let currentSibling = item.nextElementSibling;
+  while (currentSibling) {
+    if (!isElementFullyInView(currentSibling, item.parentElement)) {
+      return true;
+    }
+    currentSibling = currentSibling.nextElementSibling;
+  }
+
+  return false;
+}
+
+/**
+ * Checks if there are any previous siblings that are not fully in view
+ * @returns true if there are more items to scroll to in the previous direction
+ */
+export function hasPreviousSiblingNotInView(): boolean {
+  const item = getFocusedItem();
+  if (!item || !item.parentElement) {
+    return false;
+  }
+
+  let currentSibling = item.previousElementSibling;
+  while (currentSibling) {
+    if (!isElementFullyInView(currentSibling, item.parentElement)) {
+      return true;
+    }
+    currentSibling = currentSibling.previousElementSibling;
+  }
+
+  return false;
+}
