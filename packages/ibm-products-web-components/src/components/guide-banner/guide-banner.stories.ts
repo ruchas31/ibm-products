@@ -19,8 +19,6 @@ import {
   snapScroll,
   scrollNext,
   scrollPrevious,
-  getNextSibling,
-  getPreviousSibling,
   hasNextSiblingNotInView,
   hasPreviousSiblingNotInView,
 } from '../../utilities/snapscroll';
