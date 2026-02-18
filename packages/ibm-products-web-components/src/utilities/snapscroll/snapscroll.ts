@@ -109,22 +109,68 @@ export function getFocusedItem() {
 }
 
 /**
- * Helper function to scroll to a sibling element with proper handling for already-visible items
- * @param sibling The sibling element to scroll to
- * @param inline The scroll alignment ('start' for next, 'nearest' for previous)
+ * Helper function to check if an element is fully visible within its parent
+ * @param element The element to check
+ * @param parent The parent container
+ * @returns true if element is fully visible within parent bounds
  */
-function scrollToSibling(sibling: Element, inline: ScrollLogicalPosition) {
+function isElementFullyInView(element: Element, parent: Element): boolean {
+  const elementRect = element.getBoundingClientRect();
+  const parentRect = parent.getBoundingClientRect();
+  return (
+    elementRect.left >= parentRect.left && elementRect.right <= parentRect.right
+  );
+}
+
+/**
+ * Finds the first sibling that is not in view by traversing in the specified direction
+ * @param startSibling The sibling to start checking from
+ * @param parent The parent container
+ * @param direction 'next' to check nextElementSibling, 'previous' to check previousElementSibling
+ * @returns The first sibling not in view, or the last sibling if all are in view
+ */
+function findFirstSiblingNotInView(
+  startSibling: Element,
+  parent: Element,
+  direction: 'next' | 'previous'
+): Element {
+  let currentSibling: Element | null = startSibling;
+  let lastCheckedSibling = startSibling;
+
+  while (currentSibling) {
+    if (!isElementFullyInView(currentSibling, parent)) {
+      return currentSibling;
+    }
+    lastCheckedSibling = currentSibling;
+    currentSibling =
+      direction === 'next'
+        ? currentSibling.nextElementSibling
+        : currentSibling.previousElementSibling;
+  }
+
+  // If all siblings are in view, return the last one checked
+  return lastCheckedSibling;
+}
+
+/**
+ * Helper function to scroll to a sibling element with proper handling for already-visible items
+ * @param sibling The sibling element to start checking from
+ * @param inline The scroll alignment ('start' for next, 'nearest' for previous)
+ * @param direction The direction to traverse ('next' or 'previous')
+ */
+function scrollToSibling(
+  sibling: Element,
+  inline: ScrollLogicalPosition,
+  direction: 'next' | 'previous'
+) {
   const parent = sibling.parentElement;
   if (!parent) {
     return;
   }
 
-  // Check if the sibling is already fully in view
-  const siblingRect = sibling.getBoundingClientRect();
-  const parentRect = parent.getBoundingClientRect();
-  const isFullyInView =
-    siblingRect.left >= parentRect.left &&
-    siblingRect.right <= parentRect.right;
+  // Find the first sibling that is not in view
+  const targetSibling = findFirstSiblingNotInView(sibling, parent, direction);
+  const isFullyInView = isElementFullyInView(targetSibling, parent);
 
   // Update the selection class for already visible items
   if (isFullyInView) {
@@ -132,11 +178,11 @@ function scrollToSibling(sibling: Element, inline: ScrollLogicalPosition) {
     if (currentlySnapped) {
       currentlySnapped.classList.remove(selectionClass);
     }
-    sibling.classList.add(selectionClass);
+    targetSibling.classList.add(selectionClass);
   }
 
   // Always scroll to ensure proper snap alignment
-  sibling.scrollIntoView({
+  targetSibling.scrollIntoView({
     behavior: 'smooth',
     inline,
   });
@@ -156,7 +202,7 @@ function scrollToSibling(sibling: Element, inline: ScrollLogicalPosition) {
 export function scrollNext() {
   const sibling = getNextSibling();
   if (sibling) {
-    scrollToSibling(sibling, 'start');
+    scrollToSibling(sibling, 'start', 'next');
   }
 }
 
@@ -166,7 +212,7 @@ export function scrollNext() {
 export function scrollPrevious() {
   const sibling = getPreviousSibling();
   if (sibling) {
-    scrollToSibling(sibling, 'nearest');
+    scrollToSibling(sibling, 'nearest', 'previous');
   }
 }
 
