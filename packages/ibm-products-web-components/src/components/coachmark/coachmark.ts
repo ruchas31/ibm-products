@@ -24,6 +24,10 @@ import {
 
 export const blockClass = `${prefix}--coachmark`;
 
+const SignalWatcherBase = SignalWatcher(
+  HostListenerMixin(LitElement)
+) as typeof LitElement;
+
 /**
  * coachmark main component
  * @element c4p-coachmark
@@ -32,7 +36,7 @@ export const blockClass = `${prefix}--coachmark`;
  *   This event can be used to perform actions such as focusing elements when the coachmark becomes visible.
  */
 @customElement(`${prefix}-coachmark`)
-class CDSCoachmark extends SignalWatcher(HostListenerMixin(LitElement)) {
+class CDSCoachmark extends SignalWatcherBase {
   /**
    * Specifies whether the component is currently open.
    */

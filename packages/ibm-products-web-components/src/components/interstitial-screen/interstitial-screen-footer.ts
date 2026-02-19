@@ -22,6 +22,10 @@ import ArrowRight from '@carbon/icons/es/arrow--right/16.js';
 import { iconLoader } from '@carbon/web-components/es/globals/internal/icon-loader.js';
 import { registerFocusableContainers } from '../../utilities/manageFocusTrap/manageFocusTrap';
 
+const SignalWatcherBase = SignalWatcher(
+  HostListenerMixin(CDSModalFooter)
+) as typeof CDSModalFooter;
+
 const blockClass = `${prefix}--interstitial-screen`;
 
 export type ActionType = 'close' | 'start' | 'skip' | 'back' | 'next';
@@ -35,9 +39,7 @@ export type ActionType = 'close' | 'start' | 'skip' | 'back' | 'next';
  *  (either synchronously or with a promise) to allow navigation.
  */
 @customElement(`${prefix}-interstitial-screen-footer`)
-class CDSInterstitialScreenFooter extends SignalWatcher(
-  HostListenerMixin(CDSModalFooter)
-) {
+class CDSInterstitialScreenFooter extends SignalWatcherBase {
   /**
    * The label for the Next button.
    */

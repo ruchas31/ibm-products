@@ -22,6 +22,10 @@ import {
   updateInterstitialDetailsSignal,
 } from './interstitial-screen-context';
 
+const SignalWatcherBase = SignalWatcher(
+  HostListenerMixin(LitElement)
+) as typeof LitElement;
+
 const blockClass = `${prefix}--interstitial-screen`;
 
 /**
@@ -31,9 +35,7 @@ const blockClass = `${prefix}--interstitial-screen`;
  * @fires c4p-on-after-step-change -  The name of the custom event fired at the end of  the step change.
  */
 @customElement(`${prefix}-interstitial-screen-body`)
-class CDSInterstitialScreenBody extends SignalWatcher(
-  HostListenerMixin(LitElement)
-) {
+class CDSInterstitialScreenBody extends SignalWatcherBase {
   @property({ reflect: true })
   slot = 'body';
 

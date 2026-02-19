@@ -21,6 +21,8 @@ import {
   trapFocus,
 } from '../../../utilities/manageFocusTrap/manageFocusTrap';
 
+const SignalWatcherBase = SignalWatcher(LitElement) as typeof LitElement;
+
 interface FormStateType {
   email?: string;
   city?: string;
@@ -28,7 +30,7 @@ interface FormStateType {
 }
 
 @customElement('step-full-page')
-export class StepFullPage extends SignalWatcher(LitElement) {
+export class StepFullPage extends SignalWatcherBase {
   @property({ type: Boolean })
   narrow: boolean = false;
   @state()

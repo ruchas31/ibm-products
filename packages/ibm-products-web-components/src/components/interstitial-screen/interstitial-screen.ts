@@ -24,6 +24,10 @@ import {
 import HostListener from '@carbon/web-components/es/globals/decorators/host-listener';
 import { trapFocus } from '../../utilities/manageFocusTrap/manageFocusTrap';
 
+const SignalWatcherBase = SignalWatcher(
+  HostListenerMixin(LitElement)
+) as typeof LitElement;
+
 export const blockClass = `${prefix}--interstitial-screen`;
 
 export type disableButtonConfigType = {
@@ -37,16 +41,14 @@ export type disableButtonConfigType = {
  * @element c4p-interstitial-screen
  * @fires c4p-interstitial-opened -  The custom event triggered after loading the component.
  * Its event.detail will provide you with carousal api methods for step navigation and method to disable any action button
- * * @fires c4p-interstitial-beingclosed - The name of the custom event fired before interstitial is being closed upon a user gesture.
+ * @fires c4p-interstitial-beingclosed - The name of the custom event fired before interstitial is being closed upon a user gesture.
  * Cancellation of this event stops the user-initiated action of closing the interstitial.
  * @fires c4p-interstitial-closed - The name of the custom event fired after this tearsheet is closed upon a user gesture.
 
  */
 
 @customElement(`${prefix}-interstitial-screen`)
-class CDSInterstitialScreen extends SignalWatcher(
-  HostListenerMixin(LitElement)
-) {
+class CDSInterstitialScreen extends SignalWatcherBase {
   /**
    * Specifies whether the component is shown as a full-screen
    * experience, else it is shown as a modal by default.

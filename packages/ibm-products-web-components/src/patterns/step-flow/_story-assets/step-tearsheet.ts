@@ -20,6 +20,8 @@ import {
   trapFocus,
 } from '../../../utilities/manageFocusTrap/manageFocusTrap';
 
+const SignalWatcherBase = SignalWatcher(LitElement) as typeof LitElement;
+
 interface FormStateType {
   email?: string;
   city?: string;
@@ -27,7 +29,7 @@ interface FormStateType {
 }
 
 @customElement('step-tearsheet')
-export class StepTearsheet extends SignalWatcher(LitElement) {
+export class StepTearsheet extends SignalWatcherBase {
   @property({ type: Boolean })
   narrow: boolean = false;
   @state()

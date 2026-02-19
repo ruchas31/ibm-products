@@ -19,6 +19,10 @@ import { interstitialDetailsSignal } from './interstitial-screen-context';
 import { SignalWatcher } from '@lit-labs/signals';
 import { registerFocusableContainers } from '../../utilities/manageFocusTrap/manageFocusTrap';
 
+const SignalWatcherBase = SignalWatcher(
+  HostListenerMixin(LitElement)
+) as typeof LitElement;
+
 const blockClass = `${prefix}--interstitial-screen`;
 const headerBlockClass = `${blockClass}--internal-header`;
 
@@ -27,9 +31,7 @@ const headerBlockClass = `${blockClass}--internal-header`;
  * @element c4p-interstitial-screen-header
  */
 @customElement(`${prefix}-interstitial-screen-header`)
-class CDSInterstitialScreenHeader extends SignalWatcher(
-  HostListenerMixin(LitElement)
-) {
+class CDSInterstitialScreenHeader extends SignalWatcherBase {
   /**
    * Provide an optional title to be applied to the header.
    */

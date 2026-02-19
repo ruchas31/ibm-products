@@ -15,12 +15,18 @@ import { carbonElement as customElement } from '@carbon/web-components/es/global
 import styles from './coachmark-body.scss?lit';
 import { SignalWatcher } from '@lit-labs/signals';
 
+const SignalWatcherBase = SignalWatcher(
+  HostListenerMixin(LitElement)
+) as typeof LitElement;
+
 /**
  * coachmark-body for content body
  * @element c4p-coachmark-body
  */
 @customElement(`${prefix}-coachmark-body`)
-class CDSCoachmarkBody extends SignalWatcher(HostListenerMixin(LitElement)) {
+
+// class CDSCoachmarkBody extends HostListenerMixin(SignalWatcher(LitElement)) {
+class CDSCoachmarkBody extends SignalWatcherBase {
   render() {
     return html` <slot></slot> `;
   }

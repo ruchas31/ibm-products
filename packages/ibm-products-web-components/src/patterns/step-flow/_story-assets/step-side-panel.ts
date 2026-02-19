@@ -18,6 +18,8 @@ import { SignalWatcher } from '@lit-labs/signals';
 import '../step-group';
 import styles from './step-side-panel.scss?lit';
 
+const SignalWatcherBase = SignalWatcher(LitElement) as typeof LitElement;
+
 const blockClass = 'c4p--step-side-panel';
 
 interface FormStateType {
@@ -27,7 +29,7 @@ interface FormStateType {
 }
 
 @customElement('step-side-panel')
-export class StepSidePanel extends SignalWatcher(LitElement) {
+export class StepSidePanel extends SignalWatcherBase {
   @state()
   open: boolean = true;
 

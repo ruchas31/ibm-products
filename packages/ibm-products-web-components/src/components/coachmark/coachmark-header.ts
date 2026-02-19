@@ -22,12 +22,16 @@ import {
 } from './coachmark-context';
 import iconLoader from '@carbon/web-components/es/globals/internal/icon-loader';
 
+const SignalWatcherBase = SignalWatcher(
+  HostListenerMixin(LitElement)
+) as typeof LitElement;
+
 /**
  * coachmark-header for content header section
  * @element c4p-coachmark-header
  */
 @customElement(`${prefix}-coachmark-header`)
-class CDSCoachmarkHeader extends SignalWatcher(HostListenerMixin(LitElement)) {
+class CDSCoachmarkHeader extends SignalWatcherBase {
   /**
    * Tooltip text and aria label for the Close button icon.
    */
