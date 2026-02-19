@@ -112,7 +112,6 @@ const renderTemplate = (args) => {
           <cds-button
             id="toggle-btn"
             kind="ghost"
-            size="md"
             class="${blockClass}__toggle-button"
             @click=${(evt: MouseEvent) => {
               const guideBanner = (evt.target as HTMLElement)?.closest(
