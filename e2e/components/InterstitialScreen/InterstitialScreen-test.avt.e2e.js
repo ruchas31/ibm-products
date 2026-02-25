@@ -9,8 +9,7 @@
 
 import { expect, test } from '@playwright/test';
 import { visitStory } from '../../test-utils/storybook';
-import { simulateKeyPress } from '../../test-utils/simulateKeyPress';
-import { carbon, pkg } from '../../../packages/ibm-products/src/settings';
+import { carbon } from '../../../packages/ibm-products/src/settings';
 
 const checkButtonsVisibleAndFocused = async (
   visibleButton1,
